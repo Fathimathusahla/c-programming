@@ -26,5 +26,11 @@
 
 
 output:-
-Enter a number:6
-factorial=720
+
+Enter the elements:
+23
+67
+89
+90
+100
+largest elemnt=100
