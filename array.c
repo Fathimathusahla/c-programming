@@ -23,3 +23,8 @@
  23     result=largest(a,5);
  24     printf("largest elemnt=%d",result);
  25 }
+
+
+output:-
+Enter a number:6
+factorial=720

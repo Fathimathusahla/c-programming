@@ -17,3 +17,7 @@
  17     printf("factorial=%d",result);
  18     return 0;
  19 }
+
+output
+Enter a number:6
+factorial=720
