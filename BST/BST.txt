@@ -1,0 +1,131 @@
+ #include<stdio.h>
+  2 #include<stdlib.h>
+  3 struct node
+  4 {
+  5     int data;
+  6     struct node*left,*right;
+  7 };
+  8 struct node*createNode(int value)
+  9 {
+ 10     struct node*newNode=(struct node*)malloc(sizeof(struct node));
+ 11     newNode->data=value;
+ 12     newNode->left=NULL;
+ 13     newNode->right=NULL;
+ 14     return newNode;
+ 15 }
+ 16 struct node*insert(struct node*root,int value)
+ 17 {
+ 18     if(root==NULL)
+ 19         return createNode(value);
+ 20     if(value<root->data)
+ 21         root->left=insert(root->left,value);
+ 22     else if(value>root->data)
+ 23         root->right=insert(root->right,value);
+ 24     return root;
+ 25 }
+ 26 void search(struct node*root,int value)
+ 27 {
+ 28     if(root==NULL)
+ 29     {
+ 30         printf("Element not found\n");
+ 31         return;
+ 32     }
+ 33     if(root->data==value)
+ 34         printf("Element found\n");
+ 35     else if(value<root->data)
+ 36         search(root->left,value);
+ 37     else
+ 38         search(root->right,value);
+ 39 }
+ 40 struct node*findMin(struct node*root)
+ 41 {
+ 42     while(root->left!=NULL)
+ 43         root=root->left;
+ 44     return root;
+ 45 }
+ 46 struct node*deleteNode(struct node*root,int value)
+ 47 {
+ 48     if(root==NULL)
+ 49         return NULL;
+ 50     if(value<root->data)
+ 51         root->left=deleteNode(root->left,value);
+ 52     else if(value>root->data)
+ 53         root->right=deleteNode(root->right,value);
+ 54     else
+ 55     {
+ 56         if(root->left==NULL && root->right==NULL)
+ 57         {
+ 58             free(root);
+ 59             return NULL;
+ 60         }
+ 61         if(root->left==NULL)
+ 62         {
+ 63             struct node*temp=root->right;
+ 64             free(root);
+ 65             return temp;
+ 66         }
+ 67         if(root->right==NULL)
+ 68         {
+ 69             struct node*temp=root->left;
+ 70             free(root);
+ 71             return temp;
+ 72         }
+ 73         struct node*temp=findMin(root->right);
+ 74         root->data=temp->data;
+ 75         root->right=deleteNode(root->right,temp->data);
+ 76     }
+ 77 return root;
+ 78 }
+ 79 void inorder(struct node*root)
+ 80 {
+ 81     if(root!=NULL)
+ 82     {
+ 83         inorder(root->left);
+ 84         printf("%d",root->data);
+ 85         inorder(root->right);
+ 86     }
+ 87 }
+ 88 int main()
+ 89 {
+ 90     struct node*root=NULL;
+ 91     int choice,value;
+ 92     while(1)
+ 93     {
+ 94         printf("\n\n1.insert");
+ 95         printf("\n2.search");
+ 96         printf("\n3.delete");
+ 97         printf("\n4.Display");
+ 98         printf("\n5.Exit");
+ 99         printf("\nEnter your choice:");
+100         scanf("%d",&choice);
+101         switch(choice)
+102         {
+103             case 1:
+104                 printf("Enter value to be insert:");
+105                 scanf("%d",&value);
+106                 root=insert(root,value);
+107                 break;
+108             case 2:
+109                 printf("Enter value to search:");
+110                 scanf("%d",&value);
+111                 search(root,value);
+112                 break;
+113             case 3:
+114                 printf("Enter value to be deleted:");
+115                 scanf("%d",&value);
+116                 root=deleteNode(root,value);
+117                 break;
+118             case 4:
+119                 printf("BST in sorted order:");
+120                 inorder(root);
+121                 printf("\n");
+122                 break;
+123             case 5:
+124                 exit(0);
+125             default:
+126                 printf("invalid choice\n");
+127         }
+128     }
+129     return 0;
+130 }
+131
