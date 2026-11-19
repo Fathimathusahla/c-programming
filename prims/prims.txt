@@ -1,0 +1,40 @@
+ #include<stdio.h>
+  2 #define INF 9999
+  3 int main()
+  4 {
+  5     int n;
+  6     printf("Enter number of nodes:");
+  7     scanf("%d",&n);
+  8     int cost[10][10],visited[10]={0};
+  9     printf("Enter the adjacency matrix:\n");
+ 10     for(int i=0;i<n;i++)
+ 11         for(int j=0;j<n;j++)
+ 12             scanf("%d",&cost[i][j]);
+ 13     visited[0]=1;
+ 14     int edges=0;
+ 15     printf("Edges in MST:\n");
+ 16     while(edges<n-1)
+ 17     {
+ 18         int min=INF,a=-1,b=-1;
+ 19         for(int i=0;i<n;i++)
+ 20         {
+ 21             if(visited[i])
+ 22             {
+ 23                 for(int j=0;j<n;j++)
+ 24                 {
+ 25                     if(!visited[j]&& cost[i][j]!=0 && cost[i][j]<min)
+ 26                     {
+ 27                         min=cost[i][j];
+ 28                         a=i;
+ 29                         b=j;
+ 30                     }
+ 31                 }
+ 32             }
+ 33          }
+ 34          printf("%d -- %d(weight=%d)\n",a,b,min);
+ 35          visited[b]=1;
+ 36          edges++;
+ 37     }
+ 38     return 0;
+ 39 }
+ 40
